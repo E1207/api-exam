@@ -65,7 +65,7 @@ All `/tasks` endpoints require an authentication token.
 
 **Required header:**
 ```
-Authorization: my-secret-access-token-2026
+Authorization: jbtKXf1Dib3w2LbRtUSq2nFGKQlgtPcgFRX09876SDt
 ```
 
 In Swagger, click the lock icon 🔒 at the top right and enter the token.
@@ -102,7 +102,7 @@ In Swagger, click the lock icon 🔒 at the top right and enter the token.
 
 ```bash
 curl -X POST http://localhost:3000/tasks \
-  -H "Authorization: my-secret-access-token-2026" \
+  -H "Authorization: jbtKXf1Dib3w2LbRtUSq2nFGKQlgtPcgFRX09876SDt" \
   -H "Content-Type: application/json" \
   -d '{
     "title": "Buy groceries",
@@ -115,14 +115,14 @@ curl -X POST http://localhost:3000/tasks \
 
 ```bash
 curl -X GET http://localhost:3000/tasks \
-  -H "Authorization: my-secret-access-token-2026"
+  -H "Authorization: jbtKXf1Dib3w2LbRtUSq2nFGKQlgtPcgFRX09876SDt"
 ```
 
 ### Update a task
 
 ```bash
 curl -X PATCH http://localhost:3000/tasks/1 \
-  -H "Authorization: my-secret-access-token-2026" \
+  -H "Authorization: jbtKXf1Dib3w2LbRtUSq2nFGKQlgtPcgFRX09876SDt" \
   -H "Content-Type: application/json" \
   -d '{
     "isCompleted": true
