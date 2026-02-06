@@ -1,85 +1,183 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# API Exam - Tasks API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Secure REST API for task management, built with NestJS.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 📋 Description
 
-## Description
+This API allows you to manage tasks with complete CRUD functionality:
+- Create, read, update and delete tasks
+- Search by ID or title
+- Input data validation
+- Token-based authentication
+- Interactive documentation with Swagger
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## 🚀 Technologies
 
-## Project setup
+- **NestJS** - Progressive Node.js framework
+- **TypeScript** - Typed language
+- **class-validator** - DTO validation
+- **class-transformer** - Object transformation
+- **Swagger** - Interactive API documentation
+
+## ⚙️ Installation
 
 ```bash
-$ npm install
+# Clone the repository
+git clone <your-repo-url>
+cd api-exam
+
+# Install dependencies
+npm install
 ```
 
-## Compile and run the project
+## 🔧 Configuration
+
+Create a `.env` file at the project root:
+
+```env
+PORT=3000
+APP_NAME="API Exam"
+ACCESS_TOKEN=my-secret-access-token-2026
+```
+
+## 🏃 Running the app
 
 ```bash
-# development
-$ npm run start
+# Development mode (with hot-reload)
+npm run start:dev
 
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+# Production mode
+npm run build
+npm run start:prod
 ```
 
-## Run tests
+The API will be available at `http://localhost:3000`
+
+## 📚 API Documentation (Swagger)
+
+Once the application is running, access the interactive Swagger documentation:
+
+👉 **http://localhost:3000/api-docs**
+
+## 🔐 Authentication
+
+All `/tasks` endpoints require an authentication token.
+
+**Required header:**
+```
+Authorization: my-secret-access-token-2026
+```
+
+In Swagger, click the lock icon 🔒 at the top right and enter the token.
+
+## 📍 Available Endpoints
+
+### Tasks
+
+| Method | Endpoint | Description |
+|---------|----------|-------------|
+| `GET` | `/tasks` | Get all tasks |
+| `GET` | `/tasks?title=xxx` | Get a task by title |
+| `GET` | `/tasks/:id` | Get a task by ID |
+| `POST` | `/tasks` | Create a new task |
+| `PATCH` | `/tasks/:id` | Partially update a task |
+| `DELETE` | `/tasks/:id` | Delete a task |
+
+## 📝 Data Model
+
+### Task
+
+```typescript
+{
+  id: number;           // Auto-generated
+  title: string;        // Required
+  startedAt: Date;      // Required (format: "2026-02-06")
+  isCompleted: boolean; // Required
+}
+```
+
+## 🧪 Request Examples
+
+### Create a task
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+curl -X POST http://localhost:3000/tasks \
+  -H "Authorization: my-secret-access-token-2026" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Buy groceries",
+    "startedAt": "2026-02-06",
+    "isCompleted": false
+  }'
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+### Get all tasks
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+curl -X GET http://localhost:3000/tasks \
+  -H "Authorization: my-secret-access-token-2026"
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+### Update a task
 
-## Resources
+```bash
+curl -X PATCH http://localhost:3000/tasks/1 \
+  -H "Authorization: my-secret-access-token-2026" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "isCompleted": true
+  }'
+```
 
-Check out a few resources that may come in handy when working with NestJS:
+## ✨ Features
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
+- ✅ Complete REST API with all CRUD operations
+- ✅ Automatic data validation with `class-validator`
+- ✅ Token-based authentication in headers
+- ✅ Interactive documentation with Swagger/OpenAPI
+- ✅ Error handling (404, 401, 400)
+- ✅ In-memory storage (no database)
+
+## 🛠️ Project Structure
+
+```
+src/
+├── auth/
+│   └── auth.middleware.ts      # Authentication middleware
+├── tasks/
+│   ├── dto/
+│   │   ├── create-task.dto.ts  # Create DTO
+│   │   └── update-task.dto.ts  # Update DTO
+│   ├── entities/
+│   │   └── task.entity.ts      # Task entity
+│   ├── tasks.controller.ts     # REST controller
+│   ├── tasks.service.ts        # Business logic
+│   └── tasks.module.ts         # Tasks module
+├── app.module.ts               # Main module
+└── main.ts                     # Entry point
+
+```
+
+## 📦 Tests
+
+```bash
+# Unit tests
+npm run test
+
+# E2E tests
+npm run test:e2e
+
+# Test coverage
+npm run test:cov
+```
+
+## 👤 Author
+
+Emmanuel
+
+---
+
+Built with ❤️ using NestJS
 - To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
 - Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
 

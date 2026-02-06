@@ -1,13 +1,35 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  
   app.useGlobalPipes(new ValidationPipe({
-    whitelist: true, // Strip properties that do not have any decorators
-    forbidNonWhitelisted: true, // Throw an error if non-whitelisted properties are present
+    whitelist: true,
+    forbidNonWhitelisted: true,
   }));
+
+  // Configuration Swagger
+  const config = new DocumentBuilder()
+    .setTitle('API Exam - Tasks API')
+    .setDescription('API REST pour la gestion des tâches')
+    .setVersion('1.0')
+    .addApiKey(
+      {
+        type: 'apiKey',
+        name: 'Authorization',
+        in: 'header',
+        description: 'Token d\'authentification pour les endpoints sécurisés'
+      },
+      'access-token'
+    )
+    .build();
+  
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api-docs', app, document);
+
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();
