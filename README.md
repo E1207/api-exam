@@ -37,7 +37,7 @@ Create a `.env` file at the project root:
 ```env
 PORT=3000
 APP_NAME="API Exam"
-ACCESS_TOKEN=my-secret-access-token-2026
+ACCESS_TOKEN=jbtKXf1Dib3w2LbRtUSq2nFGKQlgtPcgFRX09876SDt
 ```
 
 ## 🏃 Running the app
